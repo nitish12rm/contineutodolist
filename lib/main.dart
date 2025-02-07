@@ -1,11 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() async{
+import 'data/models/task_model.dart';
+import 'data/models/user_model.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+
+  // Initialize Hive
+  await Hive.initFlutter();
+  Hive.registerAdapter(TaskAdapter()); // Register Task Model
+  Hive.registerAdapter(UserModelAdapter()); // Register User Model
+
+  await Hive.openBox<Task>('tasks'); // Open Hive Box for tasks
+
+  runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
