@@ -1,11 +1,11 @@
 import 'package:hive/hive.dart';
 
-part 'user_model.g.dart'; // Required for code generation
+part 'user_model.g.dart';
 
-@HiveType(typeId: 0) // Unique type ID for Hive
+@HiveType(typeId: 0)
 class UserModel {
   @HiveField(0)
-  final String id;
+  final String id; // Firebase UID
 
   @HiveField(1)
   final String name;
@@ -13,14 +13,10 @@ class UserModel {
   @HiveField(2)
   final String email;
 
-  @HiveField(3)
-  final String password; // Store hashed password in real applications
-
   UserModel({
     required this.id,
     required this.name,
     required this.email,
-    required this.password,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -28,7 +24,6 @@ class UserModel {
       id: map['id'],
       name: map['name'],
       email: map['email'],
-      password: map['password'],
     );
   }
 
@@ -37,7 +32,6 @@ class UserModel {
       'id': id,
       'name': name,
       'email': email,
-      'password': password,
     };
   }
 }

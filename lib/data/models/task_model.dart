@@ -34,7 +34,21 @@ class Task {
     "isCompleted": isCompleted,
     "createdAt": createdAt.toIso8601String(),
   };
-
+  Task copyWith({
+    String? id,
+    String? userId,
+    String? title,
+    bool? isCompleted,
+    DateTime? createdAt,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      isCompleted: isCompleted ?? this.isCompleted,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
   // Convert from JSON (for Firebase)
   factory Task.fromJson(Map<String, dynamic> json) => Task(
     id: json['id'],
