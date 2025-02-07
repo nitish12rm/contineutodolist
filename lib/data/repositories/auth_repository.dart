@@ -5,10 +5,13 @@ import '../models/user_model.dart';
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  /// Check if the user is already logged in (Firebase only)
-  UserModel? getCurrentUser() {
+  /// Check if the user is already logged in (Firebase + SharedPreferences)
+  Future<UserModel?> getCurrentUser() async {
     User? firebaseUser = _firebaseAuth.currentUser;
-    if (firebaseUser != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedin = prefs.getBool('isLoggedin') ?? false;
+
+    if (firebaseUser != null && isLoggedin) {
       return UserModel(
         id: firebaseUser.uid,
         name: firebaseUser.displayName ?? '',
@@ -26,6 +29,9 @@ class AuthRepository {
         password: password,
       );
 
+      // Update the user's display name in Firebase
+      await userCredential.user!.updateDisplayName(name);
+
       UserModel user = UserModel(
         id: userCredential.user!.uid,
         name: name,
@@ -33,7 +39,7 @@ class AuthRepository {
       );
 
       // Save user credentials in SharedPreferences
-      await _saveUserCredentials(email, password);
+      await _saveUserCredentials(user, password);
 
       return user;
     } catch (e) {
@@ -57,7 +63,7 @@ class AuthRepository {
       );
 
       // Save user credentials in SharedPreferences
-      await _saveUserCredentials(email, password);
+      await _saveUserCredentials(user, password);
 
       return user;
     } catch (e) {
@@ -83,10 +89,13 @@ class AuthRepository {
   }
 
   /// Save user credentials in SharedPreferences
-  Future<void> _saveUserCredentials(String email, String password) async {
+  Future<void> _saveUserCredentials(UserModel user, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('email', email);
+    await prefs.setString('email', user.email);
     await prefs.setString('password', password);
+    await prefs.setBool('isLoggedin', true);
+    await prefs.setString('userid', user.id);
+    await prefs.setString('name', user.name); // Save the user's name
   }
 
   /// Retrieve user credentials from SharedPreferences
@@ -94,9 +103,16 @@ class AuthRepository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('email');
     String? password = prefs.getString('password');
+    String? name = prefs.getString('name');
+    String? userid = prefs.getString('userid');
 
     if (email != null && password != null) {
-      return {'email': email, 'password': password};
+      return {
+        'email': email,
+        'password': password,
+        'name': name ?? '',
+        'userid': userid ?? '',
+      };
     }
     return null;
   }
@@ -106,13 +122,21 @@ class AuthRepository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('email');
     await prefs.remove('password');
+    await prefs.remove('userid');
+    await prefs.remove('name'); // Clear the user's name
+    await prefs.setBool('isLoggedin', false);
   }
 
   /// Auto-login using saved credentials
   Future<UserModel?> autoLogin() async {
     Map<String, String>? credentials = await _getUserCredentials();
     if (credentials != null) {
-      return await login(credentials['email']!, credentials['password']!);
+      try {
+        return await login(credentials['email']!, credentials['password']!);
+      } catch (e) {
+        print("Auto-login failed: $e");
+        await _clearUserCredentials(); // Clear invalid credentials
+      }
     }
     return null;
   }
