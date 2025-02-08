@@ -21,6 +21,7 @@ class SignupScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text('Sign Up'),
+
       ),
       child: SafeArea(
         child: Padding(

@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Events
 abstract class SharedPrefsEvent {}
 
 class LoadPreferences extends SharedPrefsEvent {}
@@ -15,7 +14,6 @@ class SaveUserDetails extends SharedPrefsEvent {
 
 class ClearPreferences extends SharedPrefsEvent {}
 
-// State
 class SharedPrefsState {
   final String? userName;
   final String? userEmail;
@@ -23,7 +21,6 @@ class SharedPrefsState {
   SharedPrefsState({this.userName, this.userEmail});
 }
 
-// Bloc
 class SharedPrefsBloc extends Bloc<SharedPrefsEvent, SharedPrefsState> {
   SharedPrefsBloc() : super(SharedPrefsState()) {
     on<LoadPreferences>(_onLoadPreferences);

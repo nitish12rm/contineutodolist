@@ -81,7 +81,6 @@ class MyApp extends StatelessWidget {
           return CupertinoApp(
 
             home: isLoggedin==true ? HomeScreen(userid: userid??"", name: name??"",email: email??"",) : LoginScreen(),
-// home: HomeScreen(userid: userid??"", name: name??"",email: email??"",)
           );
         },
       ),
