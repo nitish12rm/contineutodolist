@@ -128,11 +128,7 @@ class SignupScreen extends StatelessWidget {
               CupertinoButton(
                 onPressed: () {
                   // Navigate to the login screen
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                  );
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Already have an account? Log In'),
               ),
