@@ -45,6 +45,7 @@ dependencies:
   connectivity_plus: ^6.1.2
   google_fonts: ^6.2.1
   intl: ^0.20.2
+  flutter_slidable: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - family: SF Pro Display
       fonts:
         - asset: assets/fonts/sf-pro-display/SFPRODISPLAYREGULAR.OTF
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYMEDIUM.OTF
         - asset: assets/fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF
           weight: 700
 

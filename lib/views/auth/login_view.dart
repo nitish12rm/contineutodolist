@@ -1,4 +1,5 @@
 import 'package:contineutodolist/views/auth/signup_view.dart';
+import 'package:contineutodolist/views/home/home_view.dart';
 import 'package:contineutodolist/views/task/add_task_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                     // Navigate to the home screen or next screen
                     Navigator.of(context).pushReplacement(
                       CupertinoPageRoute(
-                        builder: (context) => TaskScreen(userId:state.user.id ),
+                        builder: (context) => HomeScreen( userid: state.user.id, name: state.user.name, email: state.user.email, ),
                       ),
                     );
                   } else if (state is AuthError) {
@@ -129,19 +130,3 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-// Placeholder for HomeScreen
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Home'),
-      ),
-      child: Center(
-        child: Text('Welcome to the Home Screen!'),
-      ),
-    );
-  }
-}

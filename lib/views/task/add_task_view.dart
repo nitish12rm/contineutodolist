@@ -87,7 +87,7 @@ class TaskScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => _showAddTaskDialog(context),
+            onPressed: () => showAddTaskDialog(context),
             child: const Icon(Icons.add),
           ),
         ),
@@ -135,7 +135,7 @@ class TaskScreen extends StatelessWidget {
   }
 
   /// Show a dialog to add a new task
-  void _showAddTaskDialog(BuildContext context) {
+  void showAddTaskDialog(BuildContext context) {
     final TextEditingController _titleController = TextEditingController();
 
     showDialog(

@@ -1,3 +1,4 @@
+import 'package:contineutodolist/views/home/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,10 +64,13 @@ class SignupScreen extends StatelessWidget {
               BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state is Authenticated) {
+                    final userid=state.user.id;
+                    final name=state.user.name;
+                    final email=state.user.email;
                     // Navigate to the home screen or next screen
                     Navigator.of(context).pushReplacement(
                       CupertinoPageRoute(
-                        builder: (context) => const HomeScreen(),
+                        builder: (context) =>  HomeScreen(userid:userid, name: name, email: email, ),
                       ),
                     );
                   } else if (state is AuthError) {
@@ -135,23 +139,6 @@ class SignupScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// Placeholder for HomeScreen and LoginScreen
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Home'),
-      ),
-      child: Center(
-        child: Text('Welcome to the Home Screen!'),
       ),
     );
   }
