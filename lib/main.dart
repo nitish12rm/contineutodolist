@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contineutodolist/data/repositories/task_repository.dart';
 import 'package:contineutodolist/viewmodels/auth/auth_bloc.dart';
+import 'package:contineutodolist/viewmodels/auth/auth_state.dart';
 import 'package:contineutodolist/viewmodels/auth/shared_pref_bloc.dart';
 import 'package:contineutodolist/viewmodels/task/task_bloc.dart';
 import 'package:contineutodolist/viewmodels/task/task_filter_bloc.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => TaskFilterBloc()),
         // Provide ThemeCubit
         BlocProvider(
-          create: (context) => ThemeCubit(),
+          create: (context) => ThemeBloc(),
         ),
         BlocProvider(
           create: (context) => ThemeBloc(),
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
           create: (context) => TaskBloc(taskRepository: TaskRepository()),
         ),
       ],
-      child: BlocBuilder<ThemeCubit, ThemeData>(
+      child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, theme) {
           return CupertinoApp(
 

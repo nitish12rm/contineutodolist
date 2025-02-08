@@ -1,40 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
 
-class AppThemes {
-  static final lightTheme = ThemeData(
-    brightness: Brightness.light,
-    primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Colors.white,
-    cupertinoOverrideTheme: CupertinoThemeData(
-      brightness: Brightness.light,
-      primaryColor: Colors.blue,
-    ),
-    textTheme: TextTheme(
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.black, fontFamily: "SF Pro Display"),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: Colors.grey[200],
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-    ),
-  );
+class ThemeColors {
+  // Light Theme Colors
+  static const lightBackgroundColor = Color(0xFFF9F9F9); // Light background
+  static const lightPrimaryColor = Color(0xFF6200EE); // Primary color
+  static const lightAccentColor = Color(0xFF03DAC6); // Accent color
+  static const lightTextColor = Color(0xFF000000); // Text color
+  static const lightCardColor = Color(0xFFFFFFFF); // Card color
+  static const lightIconColor = Color(0xFF000000); // Icon color
 
-  static final darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Colors.black,
-    cupertinoOverrideTheme: CupertinoThemeData(
-      brightness: Brightness.dark,
-      primaryColor: Colors.blue,
-    ),
-    textTheme: TextTheme(
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.white, fontFamily: "SF Pro Display"),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: Colors.grey[800],
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-    ),
-  );
+  // Dark Theme Colors
+  static const darkBackgroundColor = Color(0xFF121212); // Dark background
+  static const darkPrimaryColor = Color(0xFFBB86FC); // Primary color
+  static const darkAccentColor = Color(0xFF03DAC6); // Accent color
+  static const darkTextColor = Color(0xFFFFFFFF); // Text color
+  static const darkCardColor = Color(0xFF1E1E1E); // Card color
+  static const darkIconColor = Color(0xFFFFFFFF); // Icon color
 }

@@ -1,6 +1,8 @@
+import 'package:contineutodolist/core/theme/theme_bloc.dart';
 import 'package:contineutodolist/views/task/edit_task_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../settings/settings_view.dart';
 
@@ -10,9 +12,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<ThemeBloc, ThemeState>(
+  builder: (context, state) {
     return CupertinoTabScaffold(
+
+
       tabBar: CupertinoTabBar(
-        activeColor: CupertinoColors.activeBlue,
+backgroundColor: state.isDarkMode?Colors.black:Colors.white,        activeColor: CupertinoColors.activeBlue,
         inactiveColor: CupertinoColors.inactiveGray,
         items: const [
 
@@ -38,6 +44,8 @@ class HomeScreen extends StatelessWidget {
         }
       },
     );
+  },
+);
   }
 }
 
